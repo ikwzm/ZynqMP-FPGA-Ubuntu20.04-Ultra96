@@ -28,7 +28,7 @@ shell$ sudo cp /usr/bin/qemu-aarch64-static            $PWD/$targetdir/usr/bin
 shell$ sudo cp /etc/resolv.conf                        $PWD/$targetdir/etc
 shell$ sudo cp scripts/build-ubuntu20.04-rootfs.sh     $PWD/$targetdir
 shell$ sudo cp ZynqMP-FPGA-Linux/linux-*.deb           $PWD/$targetdir
-shell$ sudo cp files/xserver-*.deb                     $PWD/$targetdir
+shell$ sudo cp files/*.deb                             $PWD/$targetdir
 shell$ sudo cp files/xorg.conf                         $PWD/$targetdir
 shell$ sudo mount --bind /proc                         $PWD/$targetdir/proc
 shell$ sudo mount --bind /dev/pts                      $PWD/$targetdir/dev/pts
@@ -251,6 +251,7 @@ ubuntu20.04-rootfs# apt-get install -y ubuntu-desktop
 
 ```console
 ubuntu20.04-rootfs# dpkg -i home/fpga/debian/xserver-xorg-video-armsoc-xilinx_1.4-ubuntu20-2_arm64.deb
+ubuntu20.04-rootfs# dpkg -i home/fpga/debian/libgl1-mesa-xlnx-dri_20.0.8-0ubuntu1~20.04.1_arm64.deb
 ubuntu20.04-rootfs# cp      home/fpga/debian/xorg.conf /etc/X11
 ```
 
@@ -265,6 +266,22 @@ ubuntu20.04-rootfs# apt install -y lightdm lightdm-settings slick-greeter
 
 ```console
 ubuntu20.04-rootfs# systemctl mask sleep.target suspend.target hybrid-sleep.target
+```
+
+#### Work around Upower Service 
+
+```console
+ubuntu20.04-rootfs# sed -i -e 's/PrivateUsers=yes/#PrivateUsers=yes/g'             /usr/lib/systemd/system/upower.service
+ubuntu20.04-rootfs# sed -i -e 's/RestrictNamespaces=yes/#RestrictNamespaces=yes/g' /usr/lib/systemd/system/upower.service
+```
+
+#### Work around Gtk application crashes
+
+ * https://gitlab.gnome.org/GNOME/gdk-pixbuf/-/issues/159
+
+```console
+ubuntu20.04-rootfs# update-mime-database /usr/share/mime
+ubuntu20.04-rootfs# /usr/lib/aarch64-linux-gnu/gdk-pixbuf-2.0/gdk-pixbuf-query-loaders --update-cache
 ```
 
 #### Clean Cache

@@ -142,6 +142,7 @@ apt-get install -y ubuntu-desktop
 #### Install ZynqMP-FPGA-Xserver
 
 dpkg -i home/fpga/debian/xserver-xorg-video-armsoc-xilinx_1.4-2_arm64.deb
+dpkg -i home/fpga/debian/libgl1-mesa-xlnx-dri_20.0.8-0ubuntu1~20.04.1_arm64.deb
 cp      home/fpga/debian/xorg.conf /etc/X11
 
 #### Change Display Manager gdm -> lightdm
@@ -151,6 +152,16 @@ apt install -y lightdm lightdm-settings slick-greeter
 #### Disable Sleep/Suspend Mode
 
 systemctl mask sleep.target suspend.target hybrid-sleep.target
+
+#### Work around Upower Service 
+
+sed -i -e 's/PrivateUsers=yes/#PrivateUsers=yes/g'             /usr/lib/systemd/system/upower.service
+sed -i -e 's/RestrictNamespaces=yes/#RestrictNamespaces=yes/g' /usr/lib/systemd/system/upower.service
+
+#### Work around Gtk application crashes
+
+update-mime-database /usr/share/mime
+/usr/lib/aarch64-linux-gnu/gdk-pixbuf-2.0/gdk-pixbuf-query-loaders --update-cache
 
 #### Clean Cache
 
