@@ -37,3 +37,41 @@ This Repository is currentrly under development on the 'develop' branch.
   + Installed build-essential
   + Installed ubuntu-desktop
   + Installed lightdm
+  + Installed ruby python python3
+  + Installed Other package list -> [files/ubuntu18.04-dpkg-list.txt](files/ubuntu18.04-dpkg-list.txt)
+
+Install
+------------------------------------------------------------------------------------
+
+### Install to SD-Card
+
+* [Ultra96](doc/install/ultra96.md)
+* [Ultra96-V2](doc/install/ultra96v2.md)
+
+### Setup Ultra96 borad
+
+* Put the SD-Card in the slot on Ultra96.
+* Plug in your Display Port monitor into the Ultra96 using the mini Display Port connector.
+* Plug in a USB mouse and USB keyboard into the USB ports of the Ultra96.
+
+### Starting Ultra96 board
+
+* Turn on the Ultra96.
+* After a few seconds, the Ubuntu login screen will appear on the display.
+* Your username is "fpga". Password is set to "fpga". Please login.
+* The password for administrator rights is "admin".
+
+FAQ
+------------------------------------------------------------------------------------
+
+* [Change system console](doc/faq/change_system_console.md)
+* [Change boot runlevel](doc/faq/change_boot_runlevel.md)
+
+Build 
+------------------------------------------------------------------------------------
+
+* Build Boot Loader
+  + [Ultra96](doc/build/ultra96-boot.md)
+  + [Ultra96-V2](doc/build/ultra96v2-boot.md)
+* [Build Linux Kernel](doc/build/linux-kernel.md)
+* [Build Ubuntu 20.04 Desktop RootFS](doc/build/ubuntu20.04-rootfs.md)
