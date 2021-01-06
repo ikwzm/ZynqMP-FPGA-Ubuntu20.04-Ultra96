@@ -1,4 +1,4 @@
-## Ultra96
+## Install Ubuntu 20.04(Desktop) to Ultra96
 
 ### Downlowd from github
 

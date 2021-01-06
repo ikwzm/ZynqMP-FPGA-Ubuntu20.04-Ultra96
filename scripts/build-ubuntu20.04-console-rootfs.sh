@@ -1,5 +1,5 @@
-#This shell script refers this tip : https://qiita.com/ikwzm/items/be06b07e26cbf05fec2b
-#rootfs which this script generates is compatible for v2020.1.1 of https://github.com/ikwzm/ZynqMP-FPGA-Linux
+
+### Build Ubuntu 20.04(Console) RootFS
 
 #### Setup APT
 
@@ -76,7 +76,10 @@ mkdir /lib/firmware/mchp
 
 apt-get install -y build-essential
 apt-get install -y pkg-config
+apt-get install -y curl
 apt-get install -y git
+curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
+apt-get install -y git-lfs
 apt-get install -y kmod
 apt-get install -y flex bison
 apt-get install -y u-boot-tools device-tree-compiler
@@ -130,43 +133,10 @@ chown fpga.fpga -R /home/fpga/debian
 dpkg -i home/fpga/debian/linux-image-5.4.0-xlnx-v2020.2-zynqmp-fpga_5.4.0-xlnx-v2020.2-zynqmp-fpga-1_arm64.deb
 dpkg -i home/fpga/debian/linux-headers-5.4.0-xlnx-v2020.2-zynqmp-fpga_5.4.0-xlnx-v2020.2-zynqmp-fpga-1_arm64.deb
 
-#### Install Xorg HWE (Option)
-
-# apt-get install -y xserver-xorg-core-hwe-18.04 xserver-xorg-input-all-hwe-18.04 xserver-xorg-legacy-hwe-18.04
-# apt-get install -y xorg
-
-#### Install Ubuntu Desktop
-
-apt-get install -y ubuntu-desktop
-
-#### Install ZynqMP-FPGA-Xserver
-
-dpkg -i home/fpga/debian/xserver-xorg-video-armsoc-xilinx_1.4-2_arm64.deb
-dpkg -i home/fpga/debian/libgl1-mesa-xlnx-dri_20.0.8-0ubuntu1~20.04.1_arm64.deb
-cp      home/fpga/debian/xorg.conf /etc/X11
-
-#### Change Display Manager gdm -> lightdm
-
-apt install -y lightdm lightdm-settings slick-greeter
-
-#### Disable Sleep/Suspend Mode
-
-systemctl mask sleep.target suspend.target hybrid-sleep.target
-
-#### Work around Upower Service 
-
-sed -i -e 's/PrivateUsers=yes/#PrivateUsers=yes/g'             /usr/lib/systemd/system/upower.service
-sed -i -e 's/RestrictNamespaces=yes/#RestrictNamespaces=yes/g' /usr/lib/systemd/system/upower.service
-
-#### Work around Gtk application crashes
-
-update-mime-database /usr/share/mime
-/usr/lib/aarch64-linux-gnu/gdk-pixbuf-2.0/gdk-pixbuf-query-loaders --update-cache
-
 #### Clean Cache
 
 apt-get clean
 
 ##### Create Debian Package List
 
-dpkg -l > dpkg-list.txt
+dpkg -l > dpkg-console-list.txt

@@ -22,16 +22,17 @@ shell$ cd ..
 ### Build the root file system in $targetdir(=ubuntu20.04-rootfs)
 
 ```console
-shell$ mkdir                                           $PWD/$targetdir
-shell$ sudo debootstrap --arch=arm64 --foreign $distro $PWD/$targetdir
-shell$ sudo cp /usr/bin/qemu-aarch64-static            $PWD/$targetdir/usr/bin
-shell$ sudo cp /etc/resolv.conf                        $PWD/$targetdir/etc
-shell$ sudo cp scripts/build-ubuntu20.04-rootfs.sh     $PWD/$targetdir
-shell$ sudo cp ZynqMP-FPGA-Linux/linux-*.deb           $PWD/$targetdir
-shell$ sudo cp files/*.deb                             $PWD/$targetdir
-shell$ sudo cp files/xorg.conf                         $PWD/$targetdir
-shell$ sudo mount --bind /proc                         $PWD/$targetdir/proc
-shell$ sudo mount --bind /dev/pts                      $PWD/$targetdir/dev/pts
+shell$ mkdir                                               $PWD/$targetdir
+shell$ sudo debootstrap --arch=arm64 --foreign $distro     $PWD/$targetdir
+shell$ sudo cp /usr/bin/qemu-aarch64-static                $PWD/$targetdir/usr/bin
+shell$ sudo cp /etc/resolv.conf                            $PWD/$targetdir/etc
+shell$ sudo cp scripts/build-ubuntu20.04-server-rootfs.sh  $PWD/$targetdir
+shell$ sudo cp scripts/build-ubuntu20.04-desktop-rootfs.sh $PWD/$targetdir
+shell$ sudo cp ZynqMP-FPGA-Linux/linux-*.deb               $PWD/$targetdir
+shell$ sudo cp files/*.deb                                 $PWD/$targetdir
+shell$ sudo cp files/xorg.conf                             $PWD/$targetdir
+shell$ sudo mount -vt proc proc                            $PWD/$targetdir/proc
+shell$ sudo mount -vt devpts devpts -o gid=5,mode=620      $PWD/$targetdir/dev/pts
 ````
 
 ### Build ubuntu20.04-rootfs with QEMU
@@ -44,7 +45,7 @@ shell$ sudo chroot $PWD/$targetdir
 
 There are two ways
 
-1. run build-ubuntu20.04-rootfs.sh (easy)
+1. run build-ubuntu20.04-server-rootfs.sh then run build-ubuntu20.04-desktop-rootfs.sh (easy)
 2. run this chapter step-by-step (annoying)
 
 #### Setup APT
@@ -234,6 +235,12 @@ ubuntu20.04-rootfs# dpkg -i home/fpga/debian/linux-image-5.4.0-xlnx-v2020.2-zynq
 ubuntu20.04-rootfs# dpkg -i home/fpga/debian/linux-headers-5.4.0-xlnx-v2020.2-zynqmp-fpga_5.4.0-xlnx-v2020.2-zynqmp-fpga-1_arm64.deb
 ```
 
+#### Create Debian Package List
+
+```console
+ubuntu20.04-rootfs# dpkg -l > dpkg-server-list.txt
+```
+
 #### Install Xorg HWE (Option)
 
 ```console
@@ -251,7 +258,6 @@ ubuntu20.04-rootfs# apt-get install -y ubuntu-desktop
 
 ```console
 ubuntu20.04-rootfs# dpkg -i home/fpga/debian/xserver-xorg-video-armsoc-xilinx_1.4-ubuntu20-2_arm64.deb
-ubuntu20.04-rootfs# dpkg -i home/fpga/debian/libgl1-mesa-xlnx-dri_20.0.8-0ubuntu1~20.04.1_arm64.deb
 ubuntu20.04-rootfs# cp      home/fpga/debian/xorg.conf /etc/X11
 ```
 
@@ -293,7 +299,7 @@ ubuntu20.04-rootfs# apt-get clean
 #### Create Debian Package List
 
 ```console
-ubuntu20.04-rootfs# dpkg -l > dpkg-list.txt
+ubuntu20.04-rootfs# dpkg -l > dpkg-desktop-list.txt
 ```
 
 #### Finish
@@ -301,8 +307,9 @@ ubuntu20.04-rootfs# dpkg -l > dpkg-list.txt
 ```console
 ubuntu20.04-rootfs# exit
 shell$ sudo rm -f  $PWD/$targetdir/usr/bin/qemu-aarch64-static
-shell$ sudo rm -f  $PWD/$targetdir/build-ubuntu20.04-rootfs.sh
-shell$ sudo mv     $PWD/$targetdir/dpkg-list.txt files/ubuntu20.04-dpkg-list.txt
+shell$ sudo rm -f  $PWD/$targetdir/build-ubuntu20.04-server-rootfs.sh
+shell$ sudo rm -f  $PWD/$targetdir/build-ubuntu20.04-desktop-rootfs.sh
+shell$ sudo mv     $PWD/$targetdir/dpkg-desktop-list.txt files/ubuntu20.04-dpkg-list.txt
 shell$ sudo umount $PWD/$targetdir/proc
 shell$ sudo umount $PWD/$targetdir/dev/pts
 ```
