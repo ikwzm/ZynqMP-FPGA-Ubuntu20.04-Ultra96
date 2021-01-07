@@ -38,15 +38,15 @@ This Repository is currentrly under development on the 'develop' branch.
   + Installed ubuntu-desktop
   + Installed lightdm
   + Installed ruby python python3
-  + Installed Other package list -> [files/ubuntu18.04-dpkg-list.txt](files/ubuntu18.04-dpkg-list.txt)
+  + Installed Other package list -> [files/ubuntu20.04-desktop-dpkg-list.txt](files/ubuntu20.04-desktop-dpkg-list.txt)
 
 Install
 ------------------------------------------------------------------------------------
 
 ### Install to SD-Card
 
-* [Ultra96](doc/install/ultra96.md)
-* [Ultra96-V2](doc/install/ultra96v2.md)
+* [Ultra96](doc/install/ultra96-desktop.md)
+* [Ultra96-V2](doc/install/ultra96v2-desktop.md)
 
 ### Setup Ultra96 borad
 
@@ -74,4 +74,4 @@ Build
   + [Ultra96](doc/build/ultra96-boot.md)
   + [Ultra96-V2](doc/build/ultra96v2-boot.md)
 * [Build Linux Kernel](doc/build/linux-kernel.md)
-* [Build Ubuntu 20.04 Desktop RootFS](doc/build/ubuntu20.04-rootfs.md)
+* [Build Ubuntu 20.04 Desktop RootFS](doc/build/ubuntu20.04-desktop.md)
