@@ -28,11 +28,12 @@
  * Use 'nmcli' if you use the command line.
  * Use 'nmtui' if you use the Text-UI.
 
-#### Download ZynqMP-FPGA-Ubuntu20.04-Ultra96
+#### Download Ubuntu 20.04(Console) RootFS
 
 ```console
-shell# git clone git://github.com/ikwzm/ZynqMP-FPGA-Ubuntu20.04-Ultra96
+shell# git clone --depth=1 --branch v2020.2-console-rc1 git://github.com/ikwzm/ZynqMP-FPGA-Ubuntu20.04-Ultra96
 shell# cd ZynqMP-FPGA-Ubuntu20.04-Ultra96
+shell# git lfs pull
 ```
 
 #### Prepare 
