@@ -1,16 +1,21 @@
 ZynqMP-FPGA-Ubuntu20.04-Ultra96
 ====================================================================================
 
+Note
+------------------------------------------------------------------------------------
+
+New versions of the contents proveded in this repository are provided in the repository shown at the following URL.
+
+https://github.com/ikwzm/ZynqMP-FPGA-Ubuntu20.04
+
+Below is a description of the older version.
+
 Overview
 ------------------------------------------------------------------------------------
 
 ### Introduction
 
 This Repository provides a Linux Boot Image(U-boot, Kernel, Ubuntu 20.04 Desktop) for Ultra96/Ultra96-V2.
-
-### Note
-
-This Repository is currentrly under development on the 'develop' branch.
 
 ### Features
 
